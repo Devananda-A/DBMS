@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block content %}
+  <h2>Add Officer</h2>
+  <form method="post">
+    <label>Name</label><input name="officer_name" required>
+    <label>Rank</label><input name="officer_rank">
+    <label>Station</label>
+      <select name="station_id">
+        <option value="">-- none --</option>
+        {% for s in stations %}
+          <option value="{{ s.station_id }}">{{ s.station_name }}</option>
+        {% endfor %}
+      </select>
+    <label>Contact</label><input name="contact_no">
+    <button type="submit">Add</button>
+  </form>
+{% endblock %}

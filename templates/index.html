@@ -1,56 +1,22 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>Crime Record Management</title>
-  <style>
-    body { font-family: Arial; margin: 40px; background: #f3f3f3; }
-    h2 { color: #333; }
-    table { border-collapse: collapse; width: 100%; background: white; }
-    th, td { padding: 12px; border: 1px solid #ccc; text-align: left; }
-    form { margin-top: 20px; background: white; padding: 20px; border-radius: 8px; }
-    input, select { padding: 8px; margin: 5px; width: 200px; }
-    button { padding: 10px 20px; background: #2a7ade; color: white; border: none; border-radius: 6px; }
-  </style>
-</head>
-<body>
-  <h2>🕵 Crime Record Management System</h2>
-  
-  <table>
-    <thead>
-      <tr>
-        <th>ID</th>
-        <th>Name</th>
-        <th>Age</th>
-        <th>Crime Type</th>
-        <th>Status</th>
-      </tr>
-    </thead>
-    <tbody>
-      {% for criminal in criminals %}
-      <tr>
-        <td>{{ criminal[0] }}</td>
-        <td>{{ criminal[1] }}</td>
-        <td>{{ criminal[2] }}</td>
-        <td>{{ criminal[3] }}</td>
-        <td>{{ criminal[4] }}</td>
-      </tr>
-      {% endfor %}
-    </tbody>
-  </table>
+{% extends "base.html" %}
+{% block content %}
+  <h2>Welcome</h2>
+  <p>Use the nav links to add or view records. You can also run stored procedures under the "procedures" section below.</p>
+  <ul>
+    <li><a href="{{ url_for('station_new') }}">Add Station</a></li>
+    <li><a href="{{ url_for('officer_new') }}">Add Officer</a></li>
+    <li><a href="{{ url_for('case_new') }}">Add Case (direct)</a></li>
+    <li><a href="{{ url_for('crime_new') }}">Add Crime</a></li>
+    <li><a href="{{ url_for('criminal_new') }}">Register Criminal (direct)</a></li>
+    <li><a href="{{ url_for('victim_new') }}">Add Victim (direct)</a></li>
+    <li><a href="{{ url_for('witness_new') }}">Add Witness</a></li>
+  </ul>
 
-  <form method="POST" action="/add">
-    <h3>Add New Criminal Record</h3>
-    <input type="text" name="name" placeholder="Name" required>
-    <input type="number" name="age" placeholder="Age" required>
-    <input type="text" name="crime_type" placeholder="Crime Type" required>
-    <select name="status">
-      <option value="Under Investigation">Under Investigation</option>
-      <option value="Convicted">Convicted</option>
-      <option value="Released">Released</option>
-    </select>
-    <button type="submit">Add Record</button>
-  </form>
-
-</body>
-</html>
+  <h3>Stored Procedures</h3>
+  <ul>
+    <li><a href="{{ url_for('proc_addcase') }}">AddCaseWithOfficer</a></li>
+    <li><a href="{{ url_for('proc_addvictim') }}">AddVictim</a></li>
+    <li><a href="{{ url_for('proc_registercriminal') }}">RegisterCriminal</a></li>
+    <li><a href="{{ url_for('proc_closecase') }}">CloseCase</a></li>
+  </ul>
+{% endblock %}

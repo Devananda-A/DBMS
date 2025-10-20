@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Register Criminal via Procedure</h2>
+<form method="post">
+    <label>Name</label><input name="name" required>
+    <label>Gender</label><input name="gender">
+    <label>Age</label><input type="number" name="age">
+    <label>Address</label><input name="address">
+    <label>Crime</label>
+<select name="crime_id">
+    <option value="">-- none --</option>
+    {% for c in crimes %}
+    <option value="{{ c.crime_id }}">{{ c.crime_description }}</option>
+    {% endfor %}
+</select>
+    <button type="submit">Register Criminal</button>
+</form>
+
+{% if result %}
+<h3>Procedure Result</h3>
+<table>
+    <thead>
+        <tr>{% for k in result[0].keys() %}<th>{{ k }}</th>{% endfor %}</tr>
+    </thead>
+    <tbody>
+        {% for r in result %}
+        <tr>{% for v in r.values() %}<td>{{ v }}</td>{% endfor %}</tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endif %}
+{% endblock %}

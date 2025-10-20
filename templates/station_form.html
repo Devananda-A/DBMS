@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Add Station</h2>
+<form method="post">
+    <label>Station Name</label><input name="station_name" required>
+    <label>Location</label><input name="location" required>
+    <label>Phone</label><input name="phone">
+    <button type="submit">Add Station</button>
+</form>
+{% endblock %}

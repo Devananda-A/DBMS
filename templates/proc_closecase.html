@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Close Case via Procedure</h2>
+<form method="post">
+    <label>Case</label>
+<select name="case_id">
+    <option value="">-- none --</option>
+    {% for c in cases %}
+    <option value="{{ c.case_id }}">{{ c.case_title }}</option>
+    {% endfor %}
+</select>
+    <button type="submit">Close Case</button>
+</form>
+
+{% if result %}
+<h3>Procedure Result</h3>
+<table>
+    <thead>
+        <tr>{% for k in result[0].keys() %}<th>{{ k }}</th>{% endfor %}</tr>
+    </thead>
+    <tbody>
+        {% for r in result %}
+        <tr>{% for v in r.values() %}<td>{{ v }}</td>{% endfor %}</tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endif %}
+{% endblock %}

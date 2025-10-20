@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>CrimeDB - {{ title|default('Dashboard') }}</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>CrimeDB Management</h1>
+      <nav>
+        <a href="{{ url_for('index') }}">Home</a> |
+        <a href="{{ url_for('view_table', table='Station') }}">Stations</a> |
+        <a href="{{ url_for('view_table', table='Officer') }}">Officers</a> |
+        <a href="{{ url_for('view_table', table='CaseFile') }}">Cases</a> |
+        <a href="{{ url_for('view_table', table='Crime') }}">Crimes</a> |
+        <a href="{{ url_for('view_table', table='Criminal') }}">Criminals</a> |
+        <a href="{{ url_for('view_table', table='Victim') }}">Victims</a> |
+        <a href="{{ url_for('view_table', table='Witness') }}">Witnesses</a> |
+        <a href="{{ url_for('view_logs', logtable='Station_Log') }}">Logs</a>
+      </nav>
+    </header>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        <ul class="flashes">
+        {% for cat,msg in messages %}
+          <li class="flash {{ cat }}">{{ msg }}</li>
+        {% endfor %}
+        </ul>
+      {% endif %}
+    {% endwith %}
+
+    <main>
+      {% block content %}{% endblock %}
+    </main>
+  </div>
+</body>
+</html>

@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Add Crime</h2>
+<form method="post">
+    <label>Case</label>
+<select name="case_id">
+    <option value="">-- none --</option>
+    {% for c in cases %}
+    <option value="{{ c.case_id }}">{{ c.case_title }}</option>
+    {% endfor %}
+</select>
+    <label>Description</label><textarea name="crime_description"></textarea>
+    <label>Crime Date</label><input type="date" name="crime_date">
+    <label>Location</label><input name="crime_location">
+    <button type="submit">Add Crime</button>
+</form>
+{% endblock %}

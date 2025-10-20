@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Add Case</h2>
+<form method="post">
+    <label>Case Title</label><input name="case_title" required>
+    <label>Case Type</label><input name="case_type" required>
+    <label>Officer</label>
+<select name="officer_id">
+    <option value="">-- none --</option>
+    {% for o in officers %}
+    <option value="{{ o.officer_id }}">{{ o.officer_name }}</option>
+    {% endfor %}
+</select>
+    <button type="submit">Add Case</button>
+</form>
+{% endblock %}

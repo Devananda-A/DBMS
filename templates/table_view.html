@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% block content %}
+  <h2>{{ table }}</h2>
+  <a href="{{ url_for('index') }}">Back</a>
+  {% if rows %}
+    <table>
+      <thead>
+        <tr>
+          {% for k in rows[0].keys() %}
+            <th>{{ k }}</th>
+          {% endfor %}
+        </tr>
+      </thead>
+      <tbody>
+        {% for r in rows %}
+          <tr>
+            {% for v in r.values() %}
+              <td>{{ v }}</td>
+            {% endfor %}
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  {% else %}
+    <p>No rows found.</p>
+  {% endif %}
+{% endblock %}
