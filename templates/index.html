@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Crime Record Management</title>
+  <style>
+    body { font-family: Arial; margin: 40px; background: #f3f3f3; }
+    h2 { color: #333; }
+    table { border-collapse: collapse; width: 100%; background: white; }
+    th, td { padding: 12px; border: 1px solid #ccc; text-align: left; }
+    form { margin-top: 20px; background: white; padding: 20px; border-radius: 8px; }
+    input, select { padding: 8px; margin: 5px; width: 200px; }
+    button { padding: 10px 20px; background: #2a7ade; color: white; border: none; border-radius: 6px; }
+  </style>
+</head>
+<body>
+  <h2>🕵 Crime Record Management System</h2>
+  
+  <table>
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Age</th>
+        <th>Crime Type</th>
+        <th>Status</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for criminal in criminals %}
+      <tr>
+        <td>{{ criminal[0] }}</td>
+        <td>{{ criminal[1] }}</td>
+        <td>{{ criminal[2] }}</td>
+        <td>{{ criminal[3] }}</td>
+        <td>{{ criminal[4] }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+  <form method="POST" action="/add">
+    <h3>Add New Criminal Record</h3>
+    <input type="text" name="name" placeholder="Name" required>
+    <input type="number" name="age" placeholder="Age" required>
+    <input type="text" name="crime_type" placeholder="Crime Type" required>
+    <select name="status">
+      <option value="Under Investigation">Under Investigation</option>
+      <option value="Convicted">Convicted</option>
+      <option value="Released">Released</option>
+    </select>
+    <button type="submit">Add Record</button>
+  </form>
+
+</body>
+</html>
