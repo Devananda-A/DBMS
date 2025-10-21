@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Search Crimes by Date Range</h2>
+
+<form method="post">
+  <label>Start Date:</label>
+  <input type="date" name="start_date" required><br><br>
+
+  <label>End Date:</label>
+  <input type="date" name="end_date" required><br><br>
+
+  <button type="submit">Search</button>
+</form>
+
+{% if result %}
+  <h3>Crimes Between {{ request.form.start_date }} and {{ request.form.end_date }}</h3>
+  <table border="1" cellpadding="5">
+    <tr>
+      <th>Crime ID</th>
+      <th>Description</th>
+      <th>Date</th>
+      <th>Case Title</th>
+      <th>Officer Name</th>
+    </tr>
+    {% for row in result %}
+    <tr>
+      <td>{{ row.crime_id }}</td>
+      <td>{{ row.crime_description }}</td>
+      <td>{{ row.crime_date }}</td>
+      <td>{{ row.case_title }}</td>
+      <td>{{ row.officer_name }}</td>
+    </tr>
+    {% endfor %}
+  </table>
+{% endif %}
+{% endblock %}

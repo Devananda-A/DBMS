@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Update Case Status</h2>
+<form method="post">
+  <label>Case:</label>
+  <select name="case_id" required>
+    <option value="">--Select Case--</option>
+    {% for c in cases %}
+      <option value="{{ c.case_id }}">{{ c.case_title }}</option>
+    {% endfor %}
+  </select><br><br>
+  <label>New Status:</label>
+  <input type="text" name="new_status" placeholder="e.g. Closed" required><br><br>
+  <button type="submit">Update Status</button>
+</form>
+
+{% if result %}
+  <h3>Status Updated!</h3>
+  <pre>{{ result }}</pre>
+{% endif %}
+{% endblock %}

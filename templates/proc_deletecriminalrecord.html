@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Delete Criminal Record</h2>
+<form method="post">
+  <label>Criminal:</label>
+  <select name="criminal_id" required>
+    <option value="">--Select Criminal--</option>
+    {% for cr in criminals %}
+      <option value="{{ cr.criminal_id }}">{{ cr.name }}</option>
+    {% endfor %}
+  </select>
+  <button type="submit" onclick="return confirm('Are you sure?')">Delete</button>
+</form>
+
+{% if result %}
+  <h3>Criminal Deleted Successfully</h3>
+{% endif %}
+{% endblock %}

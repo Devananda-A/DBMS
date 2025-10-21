@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Get Criminal History</h2>
+<form method="post">
+  <label>Crime ID:</label>
+  <input type="text" name="crim_name" placeholder="Enter full name" required>
+  <button type="submit">Get History</button>
+</form>
+
+{% if result %}
+  <h3>Criminal History</h3>
+  <table border="1" cellpadding="5">
+    <tr>
+      <th>Criminal ID</th>
+      <th>Name</th>
+      <th>Crime Description</th>
+      <th>Crime Date</th>
+      <th>Case Title</th>
+    </tr>
+    {% for row in result %}
+    <tr>
+      <td>{{ row.criminal_id }}</td>
+      <td>{{ row.name }}</td>
+      <td>{{ row.crime_description }}</td>
+      <td>{{ row.crime_date }}</td>
+      <td>{{ row.case_title }}</td>
+    </tr>
+    {% endfor %}
+  </table>
+{% endif %}
+{% endblock %}

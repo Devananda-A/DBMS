@@ -276,6 +276,76 @@ def view_logs(logtable):
         return redirect(url_for('index'))
     rows = fetch_all(logtable)
     return render_template('logs_view.html', table=logtable, rows=rows)
+@app.route('/proc/getofficerscase', methods=['GET','POST'])
+def proc_getofficerscase():
+    officers = fetch_all('Officer')
+    result = None
+    if request.method == 'POST':
+        officer_id = request.form.get('officer_id')
+        conn = get_db_connection()
+        cur = conn.cursor(dictionary=True)
+        cur.callproc('GetOfficerCases', [officer_id])
+        for r in cur.stored_results():
+            result = r.fetchall()
+        cur.close(); conn.close()
+    return render_template('proc_getofficerscase.html', officers=officers, result=result)
+@app.route('/proc/updatecasestatus', methods=['GET','POST'])
+def proc_updatecasestatus():
+    cases = fetch_all('CaseFile')
+    result = None
+    if request.method == 'POST':
+        case_id = request.form.get('case_id')
+        new_status = request.form.get('new_status')
+        conn = get_db_connection()
+        cur = conn.cursor(dictionary=True)
+        cur.callproc('UpdateCaseStatus', [case_id, new_status])
+        conn.commit()
+        cur.close(); conn.close()
+        flash("Case status updated", "success")
+    return render_template('proc_updatecasestatus.html', cases=cases, result=result)
+
+@app.route('/proc/deletecriminalrecord', methods=['GET','POST'])
+def proc_deletecriminalrecord():
+    criminals = fetch_all('Criminal')
+    result = None
+    if request.method == 'POST':
+        crim_id = request.form.get('criminal_id')
+        conn = get_db_connection()
+        cur = conn.cursor(dictionary=True)
+        cur.callproc('DeleteCriminalRecord', [crim_id])
+        conn.commit()
+        cur.close(); conn.close()
+        flash("Criminal record deleted", "success")
+    return render_template('proc_deletecriminalrecord.html', criminals=criminals, result=result)
+@app.route('/proc_searchcrimebydate', methods=['GET', 'POST'])
+def proc_searchcrimebydate():
+    result = None
+    if request.method == 'POST':
+        start_date = request.form['start_date']
+        end_date = request.form['end_date']
+        conn=get_db_connection()
+        cursor =conn.cursor(dictionary=True)
+        cursor.callproc('SearchCrimeByDate', [start_date, end_date])
+        for res in cursor.stored_results():
+            result = res.fetchall()
+        cursor.close()
+    return render_template('proc_searchcrimebydate.html', result=result)
+
+
+
+@app.route('/proc/getcriminalhistory', methods=['GET','POST'])
+def proc_getcriminalhistory():
+    result = None
+    if request.method == 'POST':
+        crim_name = request.form.get('crim_name')
+        conn = get_db_connection()
+        cur = conn.cursor(dictionary=True)
+        cur.callproc('GetCriminalHistory', [crim_name])
+        for r in cur.stored_results():
+            result = r.fetchall()
+        cur.close(); conn.close()
+    return render_template('proc_getcriminalhistory.html', result=result)
+
 
 if __name__ == '__main__':
     app.run(debug=True)
